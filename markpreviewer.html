@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markdown Previewer</title>
+    <!-- Load the Marked library from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+      /* Basic styling for a clean look */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.6;
+        color: #333;
+      }
+      h1 {
+        text-align: center;
+        font-size: 24px;
+      }
+      .container {
+        display: flex; /* Align elements side by side */
+        gap: 20px;
+      }
+      .editor {
+        flex: 1; /* Editor takes up equal space */
+        min-height: 300px;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        resize: none; /* Prevent resizing to maintain layout consistency */
+      }
+      .preview {
+        flex: 1; /* Preview takes up equal space */
+        min-height: 300px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        overflow: auto; /* Scroll if content exceeds height */
+      }
+      /* Responsive adjustments for smaller screens */
+      @media (max-width: 768px) {
+        .container {
+          flex-direction: column;
+        }
+        .editor,
+        .preview {
+          min-height: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Markdown Previewer</h1>
+    <div class="container">
+      <!-- Preload the editor with corrected Markdown -->
+      <textarea
+        id="editor"
+        class="editor"
+        placeholder="Write GitHub-Flavored Markdown here..."
+      >
+# Welcome to the Markdown Previewer!
+
+## Enjoy writing Markdown
+
+Check out this [awesome link](https://example.com) for more info.
+
+Use `console.log("Hello")` for inline code.
+
+
+- Bullet item 1
+- Bullet item 2
+
+**Bold text** and _italic text_.
+
+> A blockquote to inspire you!
+
+![Sample Image](https://via.placeholder.com/150)
+      </textarea>
+      <div id="preview" class="preview"></div>
+    </div>
+
+    <script>
+      // Configure marked
+      marked.setOptions({
+        gfm: true,
+        breaks: true,
+        smartLists: true,
+        smartypants: true,
+      });
+
+      // Get references to the editor and preview elements
+      const editor = document.getElementById("editor");
+      const preview = document.getElementById("preview");
+
+      // Function to update the preview panel with parsed Markdown
+      function updatePreview() {
+        const markdownText = editor.value;
+        preview.innerHTML = marked.parse(markdownText);
+      }
+
+      // Update the preview as you type
+      editor.addEventListener("input", updatePreview);
+
+      // Initialize the preview when the page loads
+      window.addEventListener("DOMContentLoaded", updatePreview);
+    </script>
+
+    <!-- FreeCodeCamp test suite -->
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+  </body>
+</html>
+
